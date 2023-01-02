@@ -7,6 +7,7 @@ function App() {
   
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [activeGenre, setActiveGenre] = useState(0);
   
   useEffect(() => {
     fetchPopular();
@@ -22,9 +23,9 @@ function App() {
   
   return (
     <div className="App">
-      <Filter />
+      <Filter popular={popular} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}  />
       <div className="popular-movies">
-        {popular.map((movie, index) => <Movie key={index} title={movie.title.slice(0,30)} url={movie.backdrop_path} />)}
+        {filtered.map((movie, index) => <Movie key={index} title={movie.title.slice(0,30)} url={movie.backdrop_path} />)}
       </div>
     </div>
   );
