@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Movie from './components/Movie/Movie';
 
 function App() {
+  
+  const [popular, setPopular] = useState([]);
+  
+  useEffect(() => {
+    fetchPopular();
+  }, [])
+  
+  
+  const fetchPopular = async () => {
+    const data = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=7af204760b608671918b6c1e7342a142&language=en-US&page=1');
+    const movies = await data.json();
+    setPopular(movies.results);
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="popular-movies">
+        {popular.map((movie, index) => <Movie key={index} title={movie.title.slice(0,30)} url={movie.backdrop_path} />)}
+      </div>
     </div>
   );
 }
