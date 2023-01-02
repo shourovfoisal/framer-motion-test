@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { motion } from 'framer-motion'; 
 import Filter from './components/Filter/Filter';
 import Movie from './components/Movie/Movie';
 
@@ -24,9 +25,9 @@ function App() {
   return (
     <div className="App">
       <Filter popular={popular} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}  />
-      <div className="popular-movies">
+      <motion.div layout="true" className="popular-movies">
         {filtered.map((movie, index) => <Movie key={index} title={movie.title.slice(0,30)} url={movie.backdrop_path} />)}
-      </div>
+      </motion.div>
     </div>
   );
 }
